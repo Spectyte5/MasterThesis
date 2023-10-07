@@ -1,1 +1,3 @@
 # MasterThesis
+Topic: Dispersion in ultrasonic wave propagation - numerical investigations
+Decription: Ultrasonic wave have found various engineering applications. This includes the work for structural damage detection. The major problem in these investigations is the fact that many ultrasonic waves are dispersive i.e., the relevant wave speed depends on the frequency of propagating waves. Examples include Lamb waves propagating in plate-like structures. The project will investigate dispersion in ultrasonic waves. The literature on the subject will be provided. The student will be asked to create a numerical library that provides dispersion characteristics for different wave types and boundaries.
