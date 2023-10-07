@@ -5,6 +5,8 @@ Definition of views.
 from datetime import datetime
 from django.shortcuts import render
 from django.http import HttpRequest
+from .forms import CreateNewList
+from .graph import graph
 
 def home(request):
     """Renders the home page."""
@@ -41,5 +43,40 @@ def about(request):
             'title':'About',
             'message':'Your application description page.',
             'year':datetime.now().year,
+        }
+    )
+
+def app(request):
+    assert isinstance(request, HttpRequest)
+    if request.method == "POST":
+        form = CreateNewList(request.POST)
+        if form.is_valid():
+            # load data from input
+            Num = form.cleaned_data["Numerator"]
+            Den = form.cleaned_data["Denominator"]
+            figure = graph()
+            # parse data
+            return render(
+                request,
+                'app/result.html',
+                    {   
+                        'title':'Result',
+                        'message':'Your result page.',
+                        'year':datetime.now().year,
+                        'graph': figure.draw_figure(),
+                        'num': Num,
+                        'den': Den
+                    }
+            )
+    else:
+        form = CreateNewList()
+    return render(
+        request,
+        'app/app.html',
+        {   
+            'title':'App',
+            'message':'Your application page.',
+            'year':datetime.now().year,
+            'form':form,
         }
     )

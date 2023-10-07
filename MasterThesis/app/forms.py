@@ -16,3 +16,8 @@ class BootstrapAuthenticationForm(AuthenticationForm):
                                widget=forms.PasswordInput({
                                    'class': 'form-control',
                                    'placeholder':'Password'}))
+
+
+class CreateNewList(forms.Form):
+    Numerator = forms.CharField(max_length=20)
+    Denominator = forms.CharField(max_length=20)
