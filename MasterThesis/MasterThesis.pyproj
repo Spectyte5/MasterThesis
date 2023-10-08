@@ -4,8 +4,10 @@
     <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>
     <Name>MasterThesis</Name>
     <RootNamespace>MasterThesis</RootNamespace>
-    <TestFramework>Pytest</TestFramework>
+    <TestFramework>pytest</TestFramework>
     <InterpreterId>MSBuild|env|$(MSBuildProjectFullPath)</InterpreterId>
+    <UnitTestPattern>test*.py</UnitTestPattern>
+    <UnitTestRootDirectory>.</UnitTestRootDirectory>
   </PropertyGroup>
   <PropertyGroup>
     <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
@@ -37,7 +39,7 @@
     <Compile Include="app\graph.py">
       <SubType>Code</SubType>
     </Compile>
-    <Compile Include="app\tests.py" />
+    <Compile Include="app\test_views.py" />
     <Compile Include="app\views.py" />
     <Compile Include="app\__init__.py" />
     <Compile Include="app\migrations\__init__.py" />
