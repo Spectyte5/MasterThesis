@@ -1,4 +1,8 @@
 {% extends "app/layout.html" %}
 {% block content %}
-{{ graph|safe }}
+<title>Plot results</title>
+<h2>Plot results</h2>
+{% for plot in plots %}
+<img src="data:image/svg+xml;base64,{{ plot }}" alt="plot">
+{% endfor %}
 {% endblock %}

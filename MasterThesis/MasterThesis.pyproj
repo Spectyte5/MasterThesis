@@ -37,16 +37,10 @@
   <ItemGroup>
     <Compile Include="app\forms.py" />
     <Compile Include="app\models.py" />
-    <Compile Include="app\graph.py">
-      <SubType>Code</SubType>
-    </Compile>
     <Compile Include="app\test_views.py" />
     <Compile Include="app\views.py" />
     <Compile Include="app\__init__.py" />
     <Compile Include="app\migrations\__init__.py" />
-    <Compile Include="MasterThesis\solver.py">
-      <SubType>Code</SubType>
-    </Compile>
     <Compile Include="manage.py" />
     <Compile Include="MasterThesis\__init__.py" />
     <Compile Include="MasterThesis\settings.py" />

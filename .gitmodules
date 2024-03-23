@@ -1,0 +1,3 @@
+[submodule "WaveDispersion"]
+	path = WaveDispersion
+	url = https://github.com/Spectyte5/WaveDispersion.git

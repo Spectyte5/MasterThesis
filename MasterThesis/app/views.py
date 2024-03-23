@@ -5,8 +5,7 @@ Definition of views.
 from datetime import datetime
 from django.shortcuts import render
 from django.http import HttpRequest
-from .forms import CreateNewList
-from .graph import graph
+from .forms import WaveDispersionForm, get_input_from_form
 
 def home(request):
     """Renders the home page."""
@@ -48,13 +47,12 @@ def about(request):
 
 def app(request):
     assert isinstance(request, HttpRequest)
+    request.session.pop('plots', None)
     if request.method == "POST":
-        form = CreateNewList(request.POST)
+        form = WaveDispersionForm(request.POST)
         if form.is_valid():
-            # load data from input
-            Num = form.cleaned_data["Numerator"]
-            Den = form.cleaned_data["Denominator"]
-            figure = graph()
+            plotter = get_input_from_form(form)
+            plots = plotter.get_plots_as_data()
             # parse data
             return render(
                 request,
@@ -63,13 +61,11 @@ def app(request):
                         'title':'Result',
                         'message':'Your result page.',
                         'year':datetime.now().year,
-                        'graph': figure.draw_figure(),
-                        'num': Num,
-                        'den': Den
+                        'plots': plots,
                     }
             )
     else:
-        form = CreateNewList()
+        form = WaveDispersionForm()
     return render(
         request,
         'app/app.html',
