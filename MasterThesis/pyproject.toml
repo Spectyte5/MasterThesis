@@ -1,0 +1,15 @@
+[build-system]
+requires = ["poetry-core>=1.0.0"]
+build-backend = "poetry.core.masonry.api"
+
+[tool.poetry]
+name = "Django-WaveDispersion"
+version = "0.1.0"
+description = "Django Web application GUI for WaveDispersion package."
+authors = ["Rafa³ Wróbel <rwrobel@student.agh.edu.pl>"]
+
+[tool.poetry.dependencies]
+python = "^3.11"
+django = "^2.2.28"
+pytest-django = "^4.5.2"
+WaveDispersion = { path = "WaveDispersion" }

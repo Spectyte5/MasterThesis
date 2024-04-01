@@ -92,6 +92,7 @@
     <Content Include="app\templates\app\layout.html" />
     <Content Include="app\templates\app\login.html" />
     <Content Include="app\templates\app\loginpartial.html" />
+    <Content Include="pyproject.toml" />
   </ItemGroup>
   <ItemGroup>
     <Interpreter Include="env2\">

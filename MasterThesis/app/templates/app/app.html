@@ -1,21 +1,66 @@
 {% extends "app/layout.html" %}
-
 {% block content %}
 <br />
 <div class="content-section">
     <form method="POST">
         {% csrf_token %}
-        <fieldset class="form-group">
-            <legend class="border-bottom mb-4">Input your data:</legend>
-            <table>
-                {{ form.as_table }}
-            </table>
-        </fieldset>
-        <div class="form-group">
-            <button class="btn btn-outline-info" type="submit">Submit</button>
+        <style>
+            /* Custom CSS to reduce padding between label and field */
+            .custom-label {
+                padding-right: 1px; /* Adjust this value as needed */
+            }
+
+            .optional-label {
+                font-style: italic;
+                color: #6c757d; /* Adjust this color as needed */
+            }
+        </style>
+        <div class="container">
+            <div class="row">
+                <div class="col-md-6">
+                    <fieldset>
+                        <legend>Material Information</legend>
+                        {% for field in material_form %}
+                        <div class="form-group row">
+                            <label class="col-sm-4 col-form-label custom-label" for="{{ field.id_for_label }}">{{ field.label }}:{% if not field.field.required %}<span class="optional-label"> (Optional)</span>{% endif %}</label>
+                            <div class="col-sm-8">
+                                {{ field }}
+                            </div>
+                        </div>
+                        {% endfor %}
+                    </fieldset>
+                    <fieldset>
+                        <legend>Wave Information</legend>
+                        {% for field in wave_form %}
+                        <div class="form-group row">
+                            <label class="col-sm-4 col-form-label custom-label" for="{{ field.id_for_label }}">{{ field.label }}:{% if not field.field.required %}<span class="optional-label"> (Optional)</span>{% endif %}</label>
+                            <div class="col-sm-8">
+                                {{ field }}
+                            </div>
+                        </div>
+                        {% endfor %}
+                    </fieldset>
+                </div>
+                <div class="col-md-6">
+                    <fieldset>
+                        <legend>Plot Information</legend>
+                        {% for field in plot_form %}
+                        <div class="form-group row">
+                            <label class="col-sm-4 col-form-label custom-label" for="{{ field.id_for_label }}">{{ field.label }}:{% if not field.field.required %}<span class="optional-label"> (Optional)</span>{% endif %}</label>
+                            <div class="col-sm-8">
+                                {{ field }}
+                            </div>
+                        </div>
+                        {% endfor %}
+                    </fieldset>
+                    <div class="form-group row mt-3">
+                        <div class="col-sm-12 text-center">
+                            <button class="btn btn-primary" type="submit">Submit</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
         </div>
     </form>
 </div>
-
-
 {% endblock %}
