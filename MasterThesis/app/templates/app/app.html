@@ -7,12 +7,12 @@
         <style>
             /* Custom CSS to reduce padding between label and field */
             .custom-label {
-                padding-right: 1px; /* Adjust this value as needed */
+                padding-right: 1px;
             }
 
             .optional-label {
                 font-style: italic;
-                color: #6c757d; /* Adjust this color as needed */
+                color: #6c757d; 
             }
         </style>
         <div class="container">
@@ -52,15 +52,37 @@
                             </div>
                         </div>
                         {% endfor %}
-                    </fieldset>
-                    <div class="form-group row mt-3">
-                        <div class="col-sm-12 text-center">
-                            <button class="btn btn-primary" type="submit">Submit</button>
+                        <div class="form-group row mt-3">
+                            <div class="col-sm-8">
+                                <button class="btn btn-success" type="button" onclick="populateDefaultValues()">Use Default Values</button>
+                                <button class="btn btn-danger ml-2" type="button" onclick="clearAllFields()">Clear All Fields</button>
+                                <button class="btn btn-custom ml-2" type="submit">Submit</button>
+                            </div>
                         </div>
-                    </div>
+                    </fieldset>
                 </div>
             </div>
         </div>
     </form>
 </div>
+<script>
+    function populateDefaultValues() {
+        {% for field in material_form %}
+            document.getElementById("{{ field.id_for_label }}").value = "{{ field.initial }}";
+        {% endfor %}
+        {% for field in wave_form %}
+            document.getElementById("{{ field.id_for_label }}").value = "{{ field.initial }}";
+        {% endfor %}
+        {% for field in plot_form %}
+            document.getElementById("{{ field.id_for_label }}").value = "{{ field.initial|escapejs }}";
+        {% endfor %}
+    }
+
+    function clearAllFields() {
+        var inputFields = document.querySelectorAll('input:not([name="csrfmiddlewaretoken"])');
+        inputFields.forEach(function(field) {
+            field.value = '';
+        });
+    }
+</script>
 {% endblock %}

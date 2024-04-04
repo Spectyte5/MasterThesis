@@ -26,8 +26,7 @@ def contact(request):
         request,
         'app/contact.html',
         {
-            'title':'Contact Information',
-            'message':'If any questions arise, the author can be contacted via AGH email.',
+            'title':'Contact',
             'year':datetime.now().year,
         }
     )
@@ -58,11 +57,8 @@ def process_form(request):
     wave_form = WaveForm(request.POST, prefix='wave')
     plot_form = PlotForm(request.POST, prefix='plot')
     if material_form.is_valid() and wave_form.is_valid() and plot_form.is_valid():
-        plotter = get_input_from_form([material_form, wave_form, plot_form])
-        plots = plotter.get_plots_as_data()
-        # Clear previous plots before adding new ones
-        request.session.pop('plots', None)
-        request.session['plots'] = plots
+        plots, txt = get_input_from_form([material_form, wave_form, plot_form])
+
         # parse data
         return render(
             request,
@@ -72,6 +68,7 @@ def process_form(request):
                 'message': 'Your result page.',
                 'year': datetime.now().year,
                 'plots': plots,
+                'txt' : txt,
             }
         )
     else:

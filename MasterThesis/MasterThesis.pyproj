@@ -37,6 +37,9 @@
   <ItemGroup>
     <Compile Include="app\forms.py" />
     <Compile Include="app\models.py" />
+    <Compile Include="app\static\app\content\main.css">
+      <SubType>Code</SubType>
+    </Compile>
     <Compile Include="app\test_views.py" />
     <Compile Include="app\views.py" />
     <Compile Include="app\__init__.py" />

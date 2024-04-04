@@ -1,8 +1,25 @@
 {% extends "app/layout.html" %}
 {% block content %}
-<title>Plot results</title>
-<h2>Plot results</h2>
-{% for plot in plots %}
-<img src="data:image/svg+xml;base64,{{ plot }}" alt="plot">
-{% endfor %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Results</title>
+</head>
+<body>
+    <br />
+    <h3>Plots results</h3>
+    <p>Below you can find your obtained results as plots:</p>
+    {% for plot in plots %}
+    <div>
+        <img src="{{ plot }}" alt="Plot">
+        <a class="btn btn-custom" href="{{ plot }}" download>Download Plot</a>
+    </div>
+    {% endfor %}
+    <br/>
+    <h3>Text results</h3>
+    <p>Below you can find your obtained results as txt file:</p>
+    <a class="btn btn-custom" href="{{ txt }}" download>Download Text results</a>
+</body>
+</html>
 {% endblock %}
