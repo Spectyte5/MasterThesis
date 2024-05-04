@@ -1,10 +1,27 @@
 {% extends "app/layout.html" %}
-
 {% block content %}
-
-<h2>{{ title }}.</h2>
-<h3>{{ message }}</h3>
-
-<p>Use this area to provide additional information.</p>
+<div class="article-container">
+    <h3>{{ title }}</h3>
+    <p>
+        Project idea was to create a alternative numerical libary for providing dispersion characteristics for different wave types and boundaries.
+        Dispersion curves show a relation between relevant wave speed and its frequency. They are commonly used in different field of engineering and science
+        for mode identification, solution optimization and generally representing the behavior of waves in given medium.
+    </p>
+    <p>
+        This application, allows user to visualize dispersion curves for different wave types (Lamb waves, Shear-Horizontal waves, etc.)
+        and in different mediums (such traction-free isotropic plates, hollow cyllinders from different materials, etc.)
+        User has many options and parameters that allow checking wave behavior under desired condition and also changing visual side of plots.
+    </p>
+    <p>
+        The application was build using the Django framwork as backend, which allowed for efficent data managment and processing.
+        The frontend intreafce was designed using HTML, CSS and JavaScript with the addition of bootstrap library for styling.
+        All calculations where done using Numpy and Sympy libraries and then the results where plotted using matplotlib.
+    </p>
+    <p>
+        The equations and algorithms were obtained from the great book: Rose, J. L., Ultrasonic Guided Waves in Solid Media, Cambridge University Press, 2014.
+        The app was dockerized for ease of use and was written as a webapp to allow cross-compatibilty (Windows, Linux, Mac, etc.)
+        The results were validated using <a href="http://www.disperse.software"> Disperse Software </a> and tests were written following Test Driven development approach.
+    </p>
+</div>
 
 {% endblock %}

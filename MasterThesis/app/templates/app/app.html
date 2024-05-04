@@ -1,62 +1,161 @@
 {% extends "app/layout.html" %}
+{% load custom_filters %}
 {% block content %}
-<br />
+<style>
+    .content-section {
+        padding: 20px;
+    }
+
+    .form-group {
+        display: flex;
+        align-items: center;
+        margin-bottom: 10px;
+    }
+
+        .form-group label {
+            flex: 0 0 180px;
+            text-align: right;
+            margin-right: 10px;
+        }
+
+    .input-field {
+        flex: 1;
+        display: flex;
+        align-items: center;
+    }
+
+    input[type="text"], input[type="number"] {
+        width: 100%;
+        padding: 6px 12px;
+        line-height: 1.5;
+        border: 1px solid #ccc;
+    }
+
+    .unit-label {
+        margin-left: 10px;
+        font-size: 0.8em;
+        color: #666;
+    }
+
+    .optional-label {
+        font-style: italic;
+        color: #f44336;
+    }
+
+    .fieldset {
+        margin-top: 20px;
+    }
+
+    .button-container {
+        display: flex;
+        justify-content: center;
+        margin-top: 20px;
+        margin-left: 80px;
+    }
+
+    .button-container button {
+        margin: 0 2px; 
+    }
+
+    .help-icon {
+        display: inline-block;
+        margin-left: 10px; 
+        color: #999;
+        font-weight: bold;
+        cursor: help;
+        position: relative;
+    }
+
+    .help-icon:hover::after {
+        content: attr(data-tooltip);
+        position: absolute;
+        left: 100%; 
+        top: 50%; 
+        transform: translateX(10px) translateY(-50%); 
+        white-space: nowrap;
+        background-color: #333;
+        color: #fff;
+        text-align: center;
+        border-radius: 6px;
+        padding: 5px 10px;
+        z-index: 20;
+        display: block;
+    }
+</style>
 <div class="content-section">
     <form method="POST">
         {% csrf_token %}
-        <style>
-            /* Custom CSS to reduce padding between label and field */
-            .custom-label {
-                padding-right: 1px;
-            }
-
-            .optional-label {
-                font-style: italic;
-                color: #6c757d; 
-            }
-        </style>
         <div class="container">
             <div class="row">
                 <div class="col-md-6">
-                    <fieldset>
+                    <fieldset class="fieldset">
                         <legend>Material Information</legend>
                         {% for field in material_form %}
-                        <div class="form-group row">
-                            <label class="col-sm-4 col-form-label custom-label" for="{{ field.id_for_label }}">{{ field.label }}:{% if not field.field.required %}<span class="optional-label"> (Optional)</span>{% endif %}</label>
-                            <div class="col-sm-8">
+                        <div class="form-group">
+                            <label for="{{ field.id_for_label }}">
+                                {{ field.label }}
+                                {% if field.field.required %}
+                                <span class="optional-label">*</span>
+                                {% endif %}
+                                {% if field.help_text %}
+                                <span class="help-icon" data-tooltip="{{ field.help_text }}">?</span>
+                                {% endif %}
+                            </label>
+                            <div class="input-field">
                                 {{ field }}
+                                <span class="unit-label">{{ units|get_item:field.name }}</span>
                             </div>
                         </div>
                         {% endfor %}
                     </fieldset>
-                    <fieldset>
+                    <fieldset class="fieldset">
                         <legend>Wave Information</legend>
                         {% for field in wave_form %}
-                        <div class="form-group row">
-                            <label class="col-sm-4 col-form-label custom-label" for="{{ field.id_for_label }}">{{ field.label }}:{% if not field.field.required %}<span class="optional-label"> (Optional)</span>{% endif %}</label>
-                            <div class="col-sm-8">
+                        <div class="form-group">
+                            <label for="{{ field.id_for_label }}">
+                                {{ field.label }}
+                                {% if field.field.required %}
+                                <span class="optional-label">*</span>
+                                {% endif %}
+                                {% if field.help_text %}
+                                <span class="help-icon" data-tooltip="{{ field.help_text }}">?</span>
+                                {% endif %}
+                            </label>
+                            <div class="input-field">
                                 {{ field }}
+                                <span class="unit-label">{{ units|get_item:field.name }}</span>
                             </div>
                         </div>
                         {% endfor %}
                     </fieldset>
                 </div>
                 <div class="col-md-6">
-                    <fieldset>
+                    <fieldset class="fieldset">
                         <legend>Plot Information</legend>
                         {% for field in plot_form %}
-                        <div class="form-group row">
-                            <label class="col-sm-4 col-form-label custom-label" for="{{ field.id_for_label }}">{{ field.label }}:{% if not field.field.required %}<span class="optional-label"> (Optional)</span>{% endif %}</label>
-                            <div class="col-sm-8">
+                        <div class="form-group">
+                            <label for="{{ field.id_for_label }}">
+                                {{ field.label }}
+                                {% if field.field.required %}
+                                <span class="optional-label">*</span>
+                                {% endif %}
+                                {% if field.help_text %}
+                                <span class="help-icon" data-tooltip="{{ field.help_text }}">?</span>
+                                {% endif %}
+                            </label>
+                            <div class="input-field">
                                 {{ field }}
+                                <span class="unit-label">{{ units|get_item:field.name }}</span>
                             </div>
                         </div>
                         {% endfor %}
                         <div class="form-group row mt-3">
-                            <div class="col-sm-8">
-                                <button class="btn btn-success" type="button" onclick="populateDefaultValues()">Use Default Values</button>
-                                <button class="btn btn-danger ml-2" type="button" onclick="clearAllFields()">Clear All Fields</button>
-                                <button class="btn btn-custom ml-2" type="submit">Submit</button>
+                            <div class="col-12">
+                                <div class="button-container">
+                                    <button class="btn btn-success" type="button" onclick="populateDefaultValues()">Use Default Values</button>
+                                    <button class="btn btn-danger" type="button" onclick="clearAllFields()">Clear All Fields</button>
+                                    <button class="btn btn-custom" type="submit">Submit</button>
+                                </div>
                             </div>
                         </div>
                     </fieldset>
@@ -77,7 +176,6 @@
             document.getElementById("{{ field.id_for_label }}").value = "{{ field.initial|escapejs }}";
         {% endfor %}
     }
-
     function clearAllFields() {
         var inputFields = document.querySelectorAll('input:not([name="csrfmiddlewaretoken"])');
         inputFields.forEach(function(field) {

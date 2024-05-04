@@ -1,19 +1,18 @@
 {% extends "app/layout.html" %}
 
 {% block content %}
+<div class="article-container">
+    <h2>{{ title }}</h2>
 
-<h2>{{ title }}</h2>
+    <address>
+        This page was created as GUI part for WaveDispersion related Master Thesis made by Mechatronic Engineering student at Faculty of Mechanical Engineering and Robotics. 
+        Project was done at AGH University of Science and Technology in Cracow. Contact information for the author and supervisor of the project are listed below.
+    </address>
 
-<address>
-    This page was created as GUI part for WaveDispersion related Master Thessis <br />
-    made by Mechatronic Engineering student at Faculty of Mechanical Engineering <br />
-    and Robotics, AGH University of Science and Technology in Krakow. <br />
-</address>
-
-<address>
-    <strong>Project github:</strong> <a href="https://github.com/Spectyte5/MasterThesis">Github</a><br />
-    <strong>Author:</strong>   <a href="mailto:rwrobel@student.agh.edu.pl">rwrobel@student.agh.edu.pl</a><br />
-    <strong>Supervisor:</strong> <a href="mailto:staszews@agh.edu.pl">staszews@agh.edu.pl</a>
-</address>
-
-{% endblock %}
+    <address>
+        <strong>Project github:</strong> <a href="https://github.com/Spectyte5/MasterThesis">Github</a><br />
+        <strong>Author:</strong>   <a href="mailto:rwrobel@student.agh.edu.pl">rwrobel@student.agh.edu.pl</a><br />
+        <strong>Supervisor:</strong> <a href="mailto:staszews@agh.edu.pl">staszews@agh.edu.pl</a>
+    </address>
+</div>
+    {% endblock %}

@@ -74,3 +74,16 @@ a:hover {
     justify-content: center;
 }
 
+.article-container {
+    max-width: 800px;
+    margin: 50px auto;
+    padding: 30px;
+    border: 1px double #dcdcdc;
+    border-radius: 10px;
+    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.2);
+}
+
+.article-container:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+}

@@ -40,6 +40,9 @@
     <Compile Include="app\static\app\content\main.css">
       <SubType>Code</SubType>
     </Compile>
+    <Compile Include="app\templates\app\validation.html">
+      <SubType>Code</SubType>
+    </Compile>
     <Compile Include="app\test_views.py" />
     <Compile Include="app\views.py" />
     <Compile Include="app\__init__.py" />
@@ -49,6 +52,15 @@
     <Compile Include="MasterThesis\settings.py" />
     <Compile Include="MasterThesis\urls.py" />
     <Compile Include="MasterThesis\wsgi.py" />
+    <Compile Include="Dockerfile">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="build_docker.sh">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="run_docker.sh">
+      <SubType>Code</SubType>
+    </Compile>
   </ItemGroup>
   <ItemGroup>
     <Folder Include="app\" />

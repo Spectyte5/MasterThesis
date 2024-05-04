@@ -1,0 +1,25 @@
+{% extends "app/layout.html" %}
+{% block content %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Validation</title>
+</head>
+<body>
+    <br />
+    <h2>Test results</h2>
+    <p>Validation was performed by displaying Wavedispersion app's plot on top of one obtained from 
+    <a href="http://www.disperse.software"> Disperse Software </a>'s result.</p>
+    <p>The results perfectly overlap, with the only difference, being that Disperse Software has wider velocity range.</p>
+    <p>Below you can see exact test results plots, which can also be downloaded.</p>
+    {% for plot in plots %}
+    <div>
+        <img src="{{ plot }}" alt="Plot">
+        <a class="btn btn-custom" href="{{ plot }}" download>Download Plot</a>
+    </div>
+    {% endfor %}
+</body>
+</html>
+{% endblock %}
+

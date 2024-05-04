@@ -30,4 +30,5 @@ urlpatterns = [
     path('logout/', LogoutView.as_view(next_page='/'), name='logout'),
     path('admin/', admin.site.urls),
     path('app/', views.app, name='app'),
+    path('validation/', views.validation, name='validation'),
 ] + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
