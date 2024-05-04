@@ -105,13 +105,20 @@ def show_form(request, material_form=None, wave_form=None, plot_form=None):
     )
 
 def validation(request):
-    plot_files = ['Titanium_Shear.png', 'Magnesium_Lamb.png']
-    data_shear, shear_wave = setup_shear_wave('../../WaveDispersion/validation/Titanium_Shear.txt')
+    plot_files = ['Titanium_Shear_Phase.png', 'Magnesium_Lamb_Phase.png', 
+                  'Titanium_Shear_Group.png', 'Magnesium_Lamb_Group.png']
+    
+    data_shear, shear_wave = setup_shear_wave('../../WaveDispersion/validation/Titanium_Shear_Phase.txt')
+    plot_data(data_shear, shear_wave, 'Phase', 'Shear Wave Phase Velocity Test', os.path.join(settings.MEDIA_ROOT, plot_files[0]), True)
 
-    plot_data(data_shear, shear_wave, 'Shear Wave Test', os.path.join(settings.MEDIA_ROOT, plot_files[0]), True)
+    data_lamb, lamb_wave = setup_lamb_wave('../../WaveDispersion/validation/Magnesium_Lamb_Phase.txt')
+    plot_data(data_lamb, lamb_wave, 'Phase', 'Lamb Wave Phase Velocity Test', os.path.join(settings.MEDIA_ROOT, plot_files[1]), True)
 
-    data_lamb, lamb_wave = setup_lamb_wave('../../WaveDispersion/validation/Magnesium_Lamb.txt')
-    plot_data(data_lamb, lamb_wave, 'Lamb Wave Test', os.path.join(settings.MEDIA_ROOT, plot_files[1]), True)
+    data_shear, shear_wave = setup_shear_wave('../../WaveDispersion/validation/Titanium_Shear_Group.txt')
+    plot_data(data_shear, shear_wave, 'Group', 'Shear Wave Group Velocity Test', os.path.join(settings.MEDIA_ROOT, plot_files[2]), True)
+
+    data_lamb, lamb_wave = setup_lamb_wave('../../WaveDispersion/validation/Magnesium_Lamb_Group.txt')
+    plot_data(data_lamb, lamb_wave, 'Group', 'Lamb Wave Group Velocity Test', os.path.join(settings.MEDIA_ROOT, plot_files[3]), True)
     
     plots = [os.path.join(settings.MEDIA_URL, plot) for plot in plot_files ]
     plot_close_all()
