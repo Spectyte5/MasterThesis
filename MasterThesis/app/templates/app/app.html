@@ -178,9 +178,43 @@
     }
     function clearAllFields() {
         var inputFields = document.querySelectorAll('input:not([name="csrfmiddlewaretoken"])');
-        inputFields.forEach(function(field) {
-            field.value = '';
+        inputFields.forEach(function (field) {
+            if (field.name !== 'shape') {
+                field.value = '';
+            }
         });
     }
+    document.addEventListener('DOMContentLoaded', function () {
+        const shapeTypeField = document.getElementById('id_material-shape');
+        const cylinderField = document.getElementById('id_material-inner_radius').closest('.form-group');
+        const mode1FieldLabel = document.querySelector('label[for="id_wave-modes_symmetric"]');
+        const mode2FieldLabel = document.querySelector('label[for="id_wave-modes_antisymmetric"]');
+
+        function updateLabelText(label, newText) {
+            for (const node of label.childNodes) {
+                if (node.nodeType === Node.TEXT_NODE) {
+                    node.textContent = newText;
+                    break;
+                }
+            }
+        }
+
+        function updateFields() {
+            const value = shapeTypeField.value;
+            if (value === 'plate') {
+                cylinderField.style.display = 'none';
+                updateLabelText(mode1FieldLabel, 'Modes symmetric');
+                updateLabelText(mode2FieldLabel, 'Modes antisymmetric');
+            }
+            else {
+                cylinderField.style.display = 'flex';
+                updateLabelText(mode1FieldLabel, 'Modes wavenumber');
+                updateLabelText(mode2FieldLabel, 'Circumfential order');
+            }
+        }
+
+        shapeTypeField.addEventListener('change', updateFields);
+        updateFields();  
+    });
 </script>
 {% endblock %}

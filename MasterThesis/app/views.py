@@ -82,6 +82,7 @@ def show_form(request, material_form=None, wave_form=None, plot_form=None):
         'density' : 'kg/m3',           
         'youngs_modulus' : 'Pa',
         'thickness' : 'mm',
+        'inner_radius' : 'mm',
         'longitudinal_wave_velocity' : 'm/s',
         'shear_wave_velocity' : 'm/s',
         'rayleigh_wave_velocity' : 'm/s',

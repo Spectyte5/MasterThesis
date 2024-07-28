@@ -24,6 +24,11 @@ class BootstrapAuthenticationForm(AuthenticationForm):
                                    'class': 'form-control',
                                    'placeholder':'Password'}))
 
+SHAPETYPE_CHOICES = [
+        ('plate', 'Plate'),
+        ('cylinder', 'Cylinder'),
+]
+
 WAVETYPE_CHOICES =( 
     ("1", "Lamb"), 
     ("2", "Shear"), 
@@ -43,7 +48,9 @@ PLOTTYPE_CHOICES =(
 )
 
 class MaterialForm(forms.Form):
+    shape =  forms.ChoiceField(choices=SHAPETYPE_CHOICES, initial='plate', help_text='Shape type of the medium')
     thickness = forms.FloatField(initial=10, help_text='Thickness of the plate [mm]') 
+    inner_radius = forms.FloatField(initial=1.22, help_text='Inner radius of the cyllinder [mm]') 
     longitudinal_velocity = forms.FloatField(initial=6130, help_text='Longitudinal wave velocity of the material [m/s]')
     shear_velocity = forms.FloatField(initial=3130, help_text='Shear wave velocity of the material [m/s]')
     rayleigh_velocity = forms.FloatField(initial=2881.6, help_text='Rayleigh wave velocity of the material [m/s] (Optional)' ,required=False)
