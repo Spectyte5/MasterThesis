@@ -6,7 +6,7 @@ Ultrasonic wave have found various engineering applications. This includes the w
 ## Setup
 ### Creating a .env file
 1. Generate a secret key using django:
-- Secret key is then used in the django app
+  - Secret key is then used in the django app
 ```python
 # importing the function from utils
 from django.core.management.utils import get_random_secret_key
@@ -15,9 +15,9 @@ from django.core.management.utils import get_random_secret_key
 print(get_random_secret_key())
 ```
 2. Set Allowed hosts:
-- Which is a list of strings representing the host/domain names that this Django site can serve.
+  - Which is a list of strings representing the host/domain names that this Django site can serve.
 3. Put all information in .env file
-- Example will be show below
+  - Example will be show below
 ```
 # Examplary .env file
 SECRET_KEY=34030197126181789620087796727370 
