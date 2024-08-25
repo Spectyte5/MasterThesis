@@ -165,6 +165,8 @@ Plot Information part of the form.
 - **Padding factor** (`str`, optional):  
   Padding thickness for plots. Example: *{'x' : 1.00, 'y' : 1.05}*
 
+After filling up the form and submitting, the website will redirect to results view where the plots and text results can be saved. 
+
 ## References 
 1. This repository was created as master thesis made by Mechatronic Engineering student at Faculty of Mechanical Engineering and Robotics. 
 2. Project was done at AGH University of Science and Technology in Cracow under the supervision of Dr hab. inż. Wiesław Staszewski. 
