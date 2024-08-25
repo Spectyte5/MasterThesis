@@ -80,7 +80,7 @@ Material Information part of the form.
 ### Wave
 Wave Information part of the form.
 #### Parameters
-- **Type of wave**
+- **Type of wave** (`bool`)
   Lamb, Shear and Axial are supported options. Example: - 
 
 - **Modes symmetric** (`float`):  
