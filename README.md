@@ -35,5 +35,16 @@ Running the app can also done using a simple script:
 ```
 ./run_docker.sh
 ```
-## Options
-The app supports plotting dispersion curves for Lamb and SH waves for isotropic plates and waves in Hollow Cylinders. The available plots are Wavenumber, Phase Velocity, Group Velocity and Wavestructure plots.
+### Usage
+The app supports plotting dispersion curves for Lamb and SH waves for isotropic plates and waves in Hollow Cylinders. 
+The available plots are Wavenumber, Phase Velocity, Group Velocity and Wavestructure plots.
+
+#### Methods
+
+### Results
+### Validation
+### References 
+This repository was created as master thesis made by Mechatronic Engineering student at Faculty of Mechanical Engineering and Robotics. 
+Project was done at AGH University of Science and Technology in Cracow under the supervision of Dr hab. inż. Wiesław Staszewski. 
+The equations and algorithms were obtained from the great book: Rose, J. L., Ultrasonic Guided Waves in Solid Media, Cambridge University Press, 1999. 
+The results were validated using Disperse Software.
