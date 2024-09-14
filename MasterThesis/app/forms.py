@@ -9,9 +9,9 @@ from django.conf import settings
 # temporary
 sys.path.append("../../WaveDispersion")
 # temporary
-from Material import Material
+from Material import Plate, Cylinder
 from Plot import Plot
-from Wave import Lambwave, Shearwave
+from Wave import Lambwave, Shearwave, Axialwave
 
 class BootstrapAuthenticationForm(AuthenticationForm):
     """Authentication form which uses boostrap CSS."""
@@ -24,7 +24,7 @@ class BootstrapAuthenticationForm(AuthenticationForm):
                                    'class': 'form-control',
                                    'placeholder':'Password'}))
 
-SHAPETYPE_CHOICES = [
+SHAPETYPE_CHOICES = [ 
         ('plate', 'Plate'),
         ('cylinder', 'Cylinder'),
 ]
@@ -32,12 +32,16 @@ SHAPETYPE_CHOICES = [
 WAVETYPE_CHOICES =( 
     ("1", "Lamb"), 
     ("2", "Shear"), 
+    ("3", "Axial"), 
 )
 
 MODETYPE_CHOICES =( 
     ("1", "both"), 
     ("2", "symmetric"), 
     ("3", "antisymmetric"), 
+    ("4", "torsional"), 
+    ("5", "longitudinal"), 
+    ("6", "torsional"), 
 )
 
 PLOTTYPE_CHOICES =( 
@@ -46,6 +50,7 @@ PLOTTYPE_CHOICES =(
     ("3", "Wavenumber"), 
     ("4", "Wavestructure"), 
 )
+
 
 class MaterialForm(forms.Form):
     shape =  forms.ChoiceField(choices=SHAPETYPE_CHOICES, initial='plate', help_text='Shape type of the medium')
@@ -63,7 +68,7 @@ class WaveForm(forms.Form):
     max_freq_thickness = forms.IntegerField(initial=10000, help_text='Max value pf Frequency x Thickness [kHz x mm]')
     max_phase_velocity = forms.IntegerField(initial=12000, help_text='Max value pf Frequency x Thickness [m/s]')
     wavestructure_mode = forms.CharField(initial='S_0', max_length=3, min_length=3, help_text='Which mode should be used for wavestructure plot, \
-    for simplicity S_0, A_0 ... S_n, A_n for all Wavetypes (Optional - Wavestructure Plot only)', required=False)
+    for Lamb: [S_0, A_0], for Shear: [SH_0, SH_1], for Axial: [T_(0,1), L_(0,1), F_(0,1)] (Optional - Wavestructure Plot only)', required=False)
     wavestructure_freq = forms.CharField(initial=[500, 1000, 1500, 2000, 2500, 3000], max_length=50,
         help_text='Frequencies at which to check Wavestructure (Optional - Wavestructure Plot only)' , required=False)
     wavestructure_rows = forms.IntegerField(initial=3, required=False,
@@ -122,9 +127,10 @@ def validate_wave(form):
 def get_input_from_form(form):
     # load Material data from input
     thickness = form[0].cleaned_data["thickness"]
-    velocities = (form[0].cleaned_data["longitudinal_velocity"], form[0].cleaned_data["shear_velocity"], form[0].cleaned_data["rayleigh_velocity"])
+    velocities = (form[0].cleaned_data["longitudinal_velocity"], form[0].cleaned_data["shear_velocity"])
+    rayleigh_vel = form[0].cleaned_data["rayleigh_velocity"]
     name = form[0].cleaned_data["material_name"]
-    material = Material(thickness, *velocities, name)
+    inner_radius = form[0].cleaned_data["inner_radius"]
 
     # load Wave data from input
     wavetype = dict(WAVETYPE_CHOICES).get(form[1].cleaned_data["type_of_wave"])
@@ -132,10 +138,16 @@ def get_input_from_form(form):
     cp_freq_max = (form[1].cleaned_data["max_freq_thickness"], form[1].cleaned_data["max_phase_velocity"])
     structure_args = validate_wave(form)
     cp_freq_steps = (form[1].cleaned_data["number_of_fd_points"], form[1].cleaned_data["phase_velocity_step"])
-    if wavetype == "Lamb":
-        wave = Lambwave(material, modes_num, *cp_freq_max, *structure_args, *cp_freq_steps)
-    else: 
-        wave = Shearwave(material, modes_num, *cp_freq_max, *structure_args, *cp_freq_steps)
+    match(wavetype):
+        case "Lamb":
+            material = Plate(thickness, *velocities, rayleigh_wave_velocity=rayleigh_vel, name=name)
+            wave = Lambwave(material, modes_num, *cp_freq_max, *structure_args, *cp_freq_steps)
+        case "Shear": 
+            material = Plate(thickness, *velocities, rayleigh_wave_velocity=rayleigh_vel, name=name)
+            wave = Shearwave(material, modes_num, *cp_freq_max, *structure_args, *cp_freq_steps)
+        case "Axial":
+            material = Cylinder(thickness, *velocities, inner_radius, name=name)
+            wave = Axialwave(material, modes_num, *cp_freq_max)
 
     # load Plot data from input
     plotted_modes = dict(MODETYPE_CHOICES).get(form[2].cleaned_data["type_of_modes"])
@@ -143,7 +155,7 @@ def get_input_from_form(form):
     show_optional = (form[2].cleaned_data["show_cutoff_freq"], form[2].cleaned_data["show_velocities"])
 
     # Create a dictionary of kwargs excluding empty values
-    kwargs = {
+    kwargs = { 
     field: ast.literal_eval(form[2].cleaned_data[field])
     for field in (
         "symmetric_style","antisymmetric_style", "dashed_line_style",
