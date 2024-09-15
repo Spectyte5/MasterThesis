@@ -166,3 +166,6 @@ cython_debug/
 
 # Media 
 media/
+
+# Django cache
+MasterThesis/django_cache/*
