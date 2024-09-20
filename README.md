@@ -74,26 +74,18 @@ Material Information part of the form.
   The velocity of Rayleigh waves in the material, measured in meters per second (m/s). Example: *2881.6*
 - **Material name ** (`str`, optional):  
   The name of the material. Defaults to `"no_material"` if not provided. Example: *Aluminium*
-- **inner_radius** (`float`):
-  Inner radius of the cylinder, in mm (*Cylinder*). Example: *15.24*
   
 ### Wave
 Wave Information part of the form.
 #### Parameters
 - **Type of wave** (`bool`)
-  Lamb, Shear and Axial are supported options. Example: - 
+  Lamb and Shear are supported options. Example: - 
 
 - **Modes symmetric** (`float`):  
   Number of symmetric  modes (*Plate*). Example: *5*
 
 - **Modes antisymmetric** (`float`):  
   Number of antisymmetric modes (*Plate*). Example: *5*
-
-- **Circumfential order** (`float`):  
-  Number of circumferencial order. Example: *5*
-
-- **Modes wavenumber** (`float`):  
-  Number of wavenumber modes (*Cylinder*) Example: *5*
 
 - **Max freq thickness** (`int`):  
   Maximum value of Frequency x Thickness [kHz x mm]. Example: *10000*
