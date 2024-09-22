@@ -8,10 +8,6 @@ from datetime import datetime
 from django.shortcuts import render
 from django.http import HttpRequest
 from .forms import MaterialForm, WaveForm, PlotForm, get_input_from_form
-
-# TEMP
-sys.path.append("../../WaveDispersion")
-# temporary
 from Tests import setup_shear_wave, setup_lamb_wave, plot_data, plot_close_all
 from django.core.cache import cache
 from django.http import JsonResponse

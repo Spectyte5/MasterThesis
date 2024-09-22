@@ -2,15 +2,11 @@
 Definition of forms.
 """
 
-import sys, os, shutil, ast
+import os, shutil, ast
 from django import forms
 from django.contrib.auth.forms import AuthenticationForm
 from django.utils.translation import ugettext_lazy as _
 from django.conf import settings
-
-# temporary
-sys.path.append("../../WaveDispersion")
-# temporary
 from Material import Plate
 from Plot import Plot
 from Wave import Lambwave, Shearwave
