@@ -2,13 +2,13 @@
 Definition of views.
 """
 
-import sys, os, json
+import os, json
 from django.conf import settings
 from datetime import datetime
 from django.shortcuts import render
 from django.http import HttpRequest
 from .forms import MaterialForm, WaveForm, PlotForm, get_input_from_form
-from Tests import setup_shear_wave, setup_lamb_wave, plot_data, plot_close_all
+from wavedispersion.Tests import setup_shear_wave, setup_lamb_wave, plot_data, plot_close_all
 from django.core.cache import cache
 from django.http import JsonResponse
 from .configs import DEFAULT_CONFIG_1, DEFAULT_CONFIG_2, MAX_CONFIGS

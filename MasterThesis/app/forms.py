@@ -7,9 +7,9 @@ from django import forms
 from django.contrib.auth.forms import AuthenticationForm
 from django.utils.translation import ugettext_lazy as _
 from django.conf import settings
-from Material import Plate
-from Plot import Plot
-from Wave import Lambwave, Shearwave
+from wavedispersion.Material import Plate
+from wavedispersion.Plot import Plot
+from wavedispersion.Wave import Lambwave, Shearwave
 
 
 class BootstrapAuthenticationForm(AuthenticationForm):
